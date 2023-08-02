@@ -13,7 +13,12 @@ export class Todo extends Component{
 					description: { type: String},
 					done: Boolean
 			}
-		}
+		},
+		toggleState: Function
 
+	}
+
+	onClick(ev){
+		this.props.toggleState(this.props.todo.id)
 	}
 }

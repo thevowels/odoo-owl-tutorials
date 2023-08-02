@@ -29,5 +29,11 @@ export class TodoList extends Component{
 			ev.target.value = "";
 		}
 	}
+	toggleState(id){
+		const todo = this.todoList.find( (todo) => todo.id === id)
+		if(todo){
+			todo.done = !todo.done
+		}
+	}
 
 }
