@@ -6,7 +6,7 @@
             <Counter/>
             <Card>
                 <t t-set-slot="title"> My Card</t>
-                <t t-set-slot="content">Some quick brown fox are lazy</t>
+                Some quick brown fox are lazy
             </Card>
             <TodoList/>
             

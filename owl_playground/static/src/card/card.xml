@@ -7,7 +7,7 @@
 					<h5 class="card-title"><t t-slot="title"/></h5>
 				</t>
 				<p class="card-text">
-					<t t-slot="content"/>
+					<t t-slot="default"/>
 				</p>
 			</div>
 		</div>
