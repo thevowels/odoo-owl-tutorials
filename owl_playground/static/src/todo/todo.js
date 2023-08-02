@@ -14,11 +14,15 @@ export class Todo extends Component{
 					done: Boolean
 			}
 		},
-		toggleState: Function
+		toggleState: Function,
+		removeTodo: Function
 
 	}
 
 	onClick(ev){
 		this.props.toggleState(this.props.todo.id)
+	}
+	doDel(ev){
+		this.props.removeTodo(this.props.todo.id)
 	}
 }
