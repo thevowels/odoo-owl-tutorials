@@ -2,13 +2,14 @@
 
 import { Component, useState } from "@odoo/owl";
 
-import {Counter} from "./counter/counter"
+import { Counter } from "./counter/counter"
 import { TodoList } from "./todo_list/todolist"
+import { Card } from "./card/card"
 
 export class Playground extends Component {
     static template = "owl_playground.playground";
 
-    static components = { Counter, TodoList}
+    static components = { Counter, TodoList, Card}
     
 }
 
