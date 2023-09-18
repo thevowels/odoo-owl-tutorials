@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space = "preserve">
     <t t-name="owl_playground.Todo" owl="1">
-        <p>This is Todo</p>
-<!--        <div t-att-class="{'text-muted text-decoration-line-through': props.todo.done}">-->
-<!--        <t t-esc="props.todo.id"/> <t t-esc="props.todo.description"/>-->
-<!--        </div>-->
-        <t t-foreach="props.todos" t-as="todo" t-key="todo.id">
-            <div t-att-class="{'text-muted text-decoration-line-through': todo.done}">
-                <t t-esc="todo.id"/> <t t-esc="todo.description"/>
-            </div>
-        </t>
+        <div t-att-class="{'text-muted text-decoration-line-through': props.todo.done}">
+        <t t-esc="props.todo.id"/> <t t-esc="props.todo.description"/>
+        </div>
     </t>
 </templates>

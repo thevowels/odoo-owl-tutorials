@@ -5,7 +5,7 @@
         <div class="p-3">
             hello world
             <Counter/>
-            <Todo todos="state.todos"/>
+            <TodoList/>
         </div>
     </t>
 
