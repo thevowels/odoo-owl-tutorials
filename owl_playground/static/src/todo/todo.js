@@ -3,6 +3,10 @@
 import { Component } from "@odoo/owl";
 
 export class Todo extends Component{
+    onClick(ev){
+        this.props.toggleState(this.props.todo.id)
+    }
+
     static template = "owl_playground.Todo"
     static props = {
         "todo": {
@@ -12,6 +16,8 @@ export class Todo extends Component{
                     description: String,
                     done: Boolean
                     }
-                }
+                },
+        "toggleState": Function
     }
+
 }
