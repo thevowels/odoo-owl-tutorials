@@ -11,7 +11,7 @@ export class Playground extends Component {
 
     setup(){
         this.state = useState(
-            {todo : {id:3, description:"buy milk",done:true}}
+            {todos : [{id:2, description:"buy beer",done:false},{id:3, description:"buy milk",done:true},{id:1, description:"buy abc",done:true}]}
         )
     }
 }

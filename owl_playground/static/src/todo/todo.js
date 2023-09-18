@@ -5,7 +5,9 @@ import { Component } from "@odoo/owl";
 export class Todo extends Component{
     static template = "owl_playground.Todo"
     static props = {
-        "todo": {
+        "todos": {
+            type: Array,
+            element : {
                 type: Object,
                 shape: {
                     id: Number,
@@ -13,5 +15,6 @@ export class Todo extends Component{
                     done: Boolean
                     }
                 }
+        }
     }
 }
