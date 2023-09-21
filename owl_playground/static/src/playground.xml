@@ -6,6 +6,10 @@
             hello world
             <Counter/>
             <br/>
+            <Card>
+                <t t-set-slot="title">Card 1</t>
+                My card 1 descriptions.
+            </Card>
             <TodoList/>
         </div>
     </t>
