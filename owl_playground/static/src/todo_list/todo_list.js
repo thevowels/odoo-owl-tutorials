@@ -17,7 +17,7 @@ export class TodoList extends Component{
         if(ev.keyCode === 13 && ev.target.value != ""){
             this.todoList.push({id:this.nextId++, description:ev.target.value, done:false})
             ev.target.value=""
-        }0
+        }
     }
     toggleTodo(todoId){
         const todo = this.todoList.find((todo)=> todo.id == todoId)
