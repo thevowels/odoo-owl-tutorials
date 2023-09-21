@@ -19,12 +19,20 @@ export class TodoList extends Component{
             ev.target.value=""
         }
     }
+
     toggleTodo(todoId){
         const todo = this.todoList.find((todo)=> todo.id == todoId)
         if(todo){
             todo.done = !todo.done
         }
         console.log('Toggle STate')
+    }
+    deleteTodo(todoId){
+        const todoIndex = this.todoList.findIndex((todo) => todo.id == todoId)
+        if(todoIndex >=0){
+            this.todoList.splice(todoIndex,1)
+        }
+
     }
 
 
