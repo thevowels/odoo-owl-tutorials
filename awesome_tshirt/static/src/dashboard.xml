@@ -2,7 +2,29 @@
 <templates xml:space="preserve">
 
     <t t-name="awesome_tshirt.clientaction" owl="1">
+        <div class="o-action">
+            <Layout display="display">
+                <t t-set-slot="control-panel-bottom-left">
+                    <button t-on-click="openCustomerView" class="btn btn-primary">Customers</button>
+                    <button t-on-click="openNewOrders" class ="btn btn-primary">New Orders</button>
+                    <button t-on-click="openCancelledOrders" class="btn btn-primary">Cancelled Order</button>
+                </t>
 
+            </Layout >
+        </div>
+        <t t-call="awesome_tshirt.clientaction.statistics"/>
+
+    </t>
+
+    <t t-name="awesome_tshirt.clientaction.statistics" owl="1">
+        <div class="d-flex flex-nowrap">
+            <div t-foreach="keyToString" t-as="key" t-key="key" class="m-2">
+                <Card>
+                    <t t-set-slot="title"><t t-esc="keyToString[key]"/></t>
+                    <p class="card-text"><t t-esc="statistics[key]"/></p>
+                </Card>
+            </div>
+        </div>
     </t>
 
 </templates>
