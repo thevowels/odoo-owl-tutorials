@@ -1,9 +1,6 @@
 /** @odoo-module */
-
 const { Component } = owl;
-
 export class Card extends Component {}
-
 Card.template = "awesome_tshirt.Card";
 Card.props = {
     slots: {
@@ -13,8 +10,8 @@ Card.props = {
             title: { type: Object, optional: true },
         },
     },
-    className:{
+    className: {
         type: String,
         optional: true,
-    }
+    },
 };

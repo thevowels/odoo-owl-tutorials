@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="awesome_tshirt.ImagePreviewField" owl="1">
+        <CharField t-props="props"/>
+        <h5 t-if="props.value.length === 0" class="text-danger">Missing Tshirt Design</h5>
+        <img t-else="" t-att-src="props.value"/>
+
+
+    </t>
+</templates>
