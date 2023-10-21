@@ -61,7 +61,7 @@ class TShirtOrder(models.Model):
         otherwise
         """
         time.sleep(0.5)
-        if random.random() < 0.5:
+        if random.random() < 0.3:
             _logger.info('Printer not connected')
             return False
         _logger.info('Label printed')
