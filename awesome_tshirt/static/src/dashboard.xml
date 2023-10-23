@@ -5,9 +5,10 @@
         <div class="o-action">
             <Layout display="display">
                 <t t-set-slot="control-panel-bottom-left">
-                    <button t-on-click="openCustomerView" class="btn btn-primary">Customers</button>
                     <button t-on-click="openNewOrders" class ="btn btn-primary">New Orders</button>
                     <button t-on-click="openCancelledOrders" class="btn btn-primary">Cancelled Order</button>
+                    <button t-on-click="openCustomerView" class="btn btn-primary">Customers</button>
+                    <CustomerAutocomplete/>
                 </t>
 
             </Layout >
