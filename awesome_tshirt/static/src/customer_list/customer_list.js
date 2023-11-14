@@ -1,45 +1,44 @@
 /** @odoo-module */
+
 import { useService } from "@web/core/utils/hooks";
 import { KeepLast } from "@web/core/utils/concurrency";
 import { fuzzyLookup } from "@web/core/utils/search";
-
+import { Pager } from "@web/core/pager/pager";
 
 const { Component, onWillStart, useState } = owl;
 
 export class CustomerList extends Component {
-    setup(){
+    setup() {
         this.orm = useService("orm");
-        this.partners = useState({data:[]});
-        // this.displayedPartners = useState({data:[]})
-        // this.domain=[];
+        this.partners = useState({ data: [] });
+        this.pager = useState({ offset: 0, limit: 20 });
         this.keepLast = new KeepLast();
-        // this.filterName = "";
         this.state = useState({
             searchString: "",
             displayActiveCustomers: false,
-        })
-        onWillStart(async ()=>{
-            this.partners.data = await this.loadCustomers();
-            // this.displayedPartners.data =this.partners.data;
-        })
+        });
+        onWillStart(async () => {
+            const { length, records } = await this.loadCustomers();
+            this.partners.data = records;
+            this.pager.total = length;
+        });
     }
 
-    get displayedPartners(){
+    get displayedPartners() {
         return this.filterCustomers(this.state.searchString);
     }
-
     async onChangeActiveCustomers(ev) {
-        // const checked = ev.target.checked;
-        // this.domain = checked ? [["has_active_order", "=", true]] : [];
-        this.state.displayActiveCustomers= ev.target.checked;
-        this.partners.data = await this.keepLast.add(this.loadCustomers());
-        // this.filterCustomers(this.filterName);
+        this.state.displayActiveCustomers = ev.target.checked;
+        this.pager.offset = 0;
+        const { length, records } = await this.keepLast.add(this.loadCustomers());
+        this.partners.data = records;
+        this.pager.total = length;
     }
-
     loadCustomers(){
         // return this.orm.searchRead("res.partner", this.domain, ["display_name"])
+        const {limit, offset } = this.pager;
         const domain = this.state.displayActiveCustomers ? [["has_active_order", "=", true]]:[];
-        return this.orm.searchRead("res.partner", domain, ["display_name"]);
+        return this.orm.webSearchRead("res.partner", domain, ["display_name"],{limit:limit, offset:offset,});
     }
 
     // onCustomerFilter(ev){
@@ -60,8 +59,16 @@ export class CustomerList extends Component {
             return this.partners.data;
         }
     }
+
+    async onUpdatePager(newState){
+        Object.assign(this.pager, newState);
+        const {records} = await this.loadCustomers();
+        this.partners.data = records;
+        this.filterCustomers(this.filterName);
+    }
 }
 
+CustomerList.components = {Pager};
 CustomerList.template = "awesome_tshirt.CustomerList";
 
 CustomerList.props = {
