@@ -3,17 +3,12 @@
 
     <t t-name="awesome_gallery.View" owl="1">
         <div class="o-action">
-            <Layout display="display">
-                <t t-set-slot="control-panel-bottom-left">
-                    <button t-on-click="openNewOrders" class ="btn btn-primary">New Orders</button>
-                    <button t-on-click="openCancelledOrders" class="btn btn-primary">Cancelled Order</button>
-                    <button t-on-click="openCustomerView" class="btn btn-primary">Customers</button>
-                    <CustomerAutocomplete/>
+            <Layout display="props.display">
+                <t t-foreach = "images.data" t-as = "image" t-key="image.id">
+                    <p t-esc = "image[props.archInfo.imageField]"/>
                 </t>
-
             </Layout >
         </div>
-
     </t>
 
 </templates>

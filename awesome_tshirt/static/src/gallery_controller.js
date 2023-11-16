@@ -1,15 +1,37 @@
 /** @odoo-module */
 import { Layout } from "@web/search/layout";
 import { CustomerAutocomplete } from "./customer_autocomplete/customer_autocomplete";
+import { useService } from "@web/core/utils/hooks";
+import { KeepLast } from "@web/core/utils/concurrency";
 // import { XMLParser } from "@web/core/utils/xml";
-const { Component,useSubEnv } = owl;
+
+const { Component, onWillStart, onWillUpdateProps, useState } = owl;
+
 
 export class GalleryController extends Component {
-    setup(){
-        this.display = {
-            controlPanel: {},
-        };
+    setup() {
+        this.orm = useService("orm");
+        this.images = useState({ data: [] });
+        this.keeplast = new KeepLast();
+        onWillStart(async () => {
+            const { records } = await this.loadImages(this.props.domain);
+            this.images.data = records;
+        });
+        
+        onWillUpdateProps(async (nextProps) =>{
+            if(JSON.stringify(nextProps.domain) !== JSON.stringify(this.props.domain)){
+                const { records }  = await this.loadImages(nextProps.domain);
+                this.images.data = records;
+            }
+        })
+    }
 
+    loadImages(domain){
+        return this.keeplast.add(
+            this.orm.webSearchRead(this.props.resModel, domain, [this.props.archInfo.imageField],{
+                limit: this.props.archInfo.limit,
+            })
+        )
     }
 }
 
