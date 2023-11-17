@@ -3,7 +3,7 @@
 import { KeepLast } from "@web/core/utils/concurrency";
 
 export class GalleryModel{
-    constructor(orm, fields, resModel, archInfo, domain){
+    constructor(orm, resModel,fields, archInfo, domain){
         this.orm = orm;
         this.resModel = resModel;
         const { imageField, limit, tooltipField } = archInfo;
@@ -13,23 +13,27 @@ export class GalleryModel{
         this.domain = domain;
         this.tooltipField = tooltipField;
         this.keepLast = new KeepLast();
+        this.pager = { offset: 0, limit: limit };
     }
 
     async load(){
-        const { records } = await this.keepLast.add(
+        const { length, records } = await this.keepLast.add(
             this.orm.webSearchRead(
                 this.resModel,
                 this.domain,
                 [this.imageField, this.tooltipField],
                 {
-                limit: this.limit,
+                    limit: this.pager.limit,
+                    offset: this.pager.offset,
                 }
             )
         )
+        this.recordsLength = length;
+
         switch(this.fields[this.tooltipField].type){
             case "many2one":
                 this.images = records.map((record)=>({
-                    ...records,
+                    ...record,
                     [this.tooltipField]: record[this.tooltipField][1],
                 }));
                 break;
