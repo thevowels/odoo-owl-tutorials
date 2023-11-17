@@ -2,13 +2,9 @@
 <templates xml:space="preserve">
 
     <t t-name="awesome_gallery.View" owl="1">
-        <div class="o-action">
-            <Layout display="props.display">
-                <t t-foreach = "images.data" t-as = "image" t-key="image.id">
-                    <p t-esc = "image[props.archInfo.imageField]"/>
-                </t>
-            </Layout >
-        </div>
+        <Layout display="props.display">
+            <t t-component="props.Renderer" images="model.images" imageField = "model.imageField"/>
+        </Layout >
     </t>
 
 </templates>
